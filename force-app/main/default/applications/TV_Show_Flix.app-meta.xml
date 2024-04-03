@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#7AE4B6</headerColor>
+        <logo>film</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Application for watching TV Shows.</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>TV Show Flix</label>
+    <navType>Standard</navType>
+    <tabs>TV_Show__c</tabs>
+    <tabs>Season__c</tabs>
+    <tabs>Episode__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>TV_Show_Flix_UtilityBar</utilityBar>
+</CustomApplication>
