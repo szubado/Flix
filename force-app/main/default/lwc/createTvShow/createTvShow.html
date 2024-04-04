@@ -1,0 +1,47 @@
+<template>
+    <lightning-button label="Add New TV Show" onclick={openModal}></lightning-button>
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add New TV Show</h2>
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="form-element-01">TV Show Name</label>
+                        <div class="slds-form-element__control">
+                            <input type="text" id="form-element-01" placeholder="Name..." class="slds-input" data-field="name" onchange={handleFieldChange} />
+                        </div>
+                        <template if:true={errorMessage}>
+                            <div class="slds-form-element__help slds-text-color_error">{errorMessage}</div>
+                        </template>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="form-element-02">TV Show Description</label>
+                        <div class="slds-form-element__control">
+                            <input type="text" id="form-element-02" placeholder="Description..." class="slds-input" data-field="description" onchange={handleFieldChange} />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="form-element-03">TV Show Page URL</label>
+                        <div class="slds-form-element__control">
+                            <input type="text" id="form-element-03" placeholder="Page URL..." class="slds-input" data-field="posterUrl" onchange={handleFieldChange} />
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <template if:true={successMessage}>
+                        <div class="slds-form-element__help slds-text-color_success">{successMessage}</div>
+                    </template>
+                    <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={createTVShow}>Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

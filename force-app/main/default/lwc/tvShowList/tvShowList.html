@@ -5,17 +5,18 @@
 				<lightning-layout multiple-rows="true" pull-to-boundary="small">
 					<template for:each={tvShows} for:item="tvShow">
 						<lightning-layout-item key={tvShow.Id} size="3" class="slds-var-p-around_x-small">
-							<lightning-card title={tvShow.Name} class="tvShow-tile">
-                                <img src={tvShow.Img__c}/>
+							<lightning-card class="tvShow-tile">
+                                <lightning-button variant="base" label={tvShow.Name} data-id={tvShow.Id} onclick={handleTvShowClick}></lightning-button>
+                                <img src={tvShow.Img__c} alt={tvShow.Name} data-id={tvShow.Id} onclick={handleTvShowClick}></img>
 							</lightning-card>
 						</lightning-layout-item>
 					</template>
 				</lightning-layout>
 			</template>
 			<template if:true={error}>
-				<div class="slds-text-color_error">
+				<p class="slds-text-color_error">
 					An error occurred while loading the tv show list
-				</div>
+				</p>
 			</template>
 		</div>
 	</lightning-card>
