@@ -34,4 +34,12 @@ public with sharing class TVShowController {
                     return null;
                 }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static TV_Show__C getTVShowsById(String tvShowId) {
+        return [SELECT Id, Name, Img__c, Description__c, Trailer__c
+                FROM TV_Show__C
+                WHERE Id = :tvShowId
+                ORDER BY Name];
+    }
 }
