@@ -30,8 +30,6 @@ export default class TvShowList extends NavigationMixin(LightningElement) {
      * @date 04/04/2024
      * @description This method navigates to TV_Show__c record page.
      */
-
-	
 	handleTvShowClick(event) {
         const tvShowId = event.target.dataset.id;
 		this[NavigationMixin.Navigate]({

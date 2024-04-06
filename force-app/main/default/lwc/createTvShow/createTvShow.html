@@ -25,18 +25,21 @@
                         <div class="slds-form-element__control">
                             <input type="text" id="form-element-02" placeholder="Description..." class="slds-input" data-field="description" onchange={handleFieldChange} />
                         </div>
+                        <template if:true={descriptionErrorMessage}>
+                            <div class="slds-form-element__help slds-text-color_error">{descriptionErrorMessage}</div>
+                        </template>
                     </div>
                     <div class="slds-form-element">
-                        <label class="slds-form-element__label" for="form-element-03">TV Show Page URL</label>
+                        <label class="slds-form-element__label" for="form-element-03">TV Show Image URL</label>
                         <div class="slds-form-element__control">
-                            <input type="text" id="form-element-03" placeholder="Page URL..." class="slds-input" data-field="posterUrl" onchange={handleFieldChange} />
+                            <input type="text" id="form-element-03" placeholder="Image URL..." class="slds-input" data-field="posterUrl" onchange={handleFieldChange} />
                         </div>
+                        <template if:true={urlErrorMessage}>
+                            <div class="slds-form-element__help slds-text-color_error">{urlErrorMessage}</div>
+                        </template>
                     </div>
                 </div>
                 <footer class="slds-modal__footer">
-                    <template if:true={successMessage}>
-                        <div class="slds-form-element__help slds-text-color_success">{successMessage}</div>
-                    </template>
                     <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
                     <button class="slds-button slds-button_brand" onclick={createTVShow}>Save</button>
                 </footer>

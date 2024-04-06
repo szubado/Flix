@@ -9,7 +9,7 @@ public with sharing class TVShowController {
      * @date 03/04/2024
      * @description The method returns list of TV_Show__c with their Id, Name, Img__c.
      */
-      @AuraEnabled(cacheable=true)
+      @AuraEnabled
       public static List<TV_Show__C> getTVShows() {
           return [SELECT Id, Name, Img__c
                   FROM TV_Show__C
@@ -37,7 +37,7 @@ public with sharing class TVShowController {
 
     @AuraEnabled(cacheable=true)
     public static TV_Show__C getTVShowsById(String tvShowId) {
-        return [SELECT Id, Name, Img__c, Description__c, Trailer__c
+        return [SELECT Id, Name, Img__c, Description__c, Trailer__c, City__c
                 FROM TV_Show__C
                 WHERE Id = :tvShowId
                 ORDER BY Name];

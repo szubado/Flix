@@ -1,6 +1,7 @@
 import { LightningElement } from 'lwc';
 import { createRecord } from 'lightning/uiRecordApi';
 import getTVShowByName from '@salesforce/apex/TVShowController.getTVShowByName';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 /**
  * @author Dominika Szuba <dominika.szuba@accenture.com>
@@ -13,7 +14,8 @@ export default class CreateTvShow extends LightningElement {
     posterUrl;
     showModal = false;
     errorMessage;
-    successMessage;
+    urlErrorMessage;
+    descriptionErrorMessage;
 
     /**
      * @author Dominika Szuba <dominika.szuba@accenture.com>
@@ -32,17 +34,18 @@ export default class CreateTvShow extends LightningElement {
      * 
      * @param name name of a TV_Show__c.
      */
-    async createTVShow() {
-        try {
-            const result = await getTVShowByName({ name: this.name });
-            if (result) {
-                this.errorMessage = 'A TV show with this name already exists.';
-            } else {
-                await this.createNewRecord();
-            }
-        } catch (error) {
-            console.error('Error checking existing TV show:', error);
-        }
+    createTVShow() {
+        getTVShowByName({ name: this.name })
+            .then(result => {
+                if (result) {
+                    this.errorMessage = 'A TV show with this name already exists.';
+                } else {
+                    this.createNewRecord();
+                }
+            })
+            .catch(error => {
+                console.error('Error checking existing TV show:', error);
+            });
     }
 
     /**
@@ -53,6 +56,14 @@ export default class CreateTvShow extends LightningElement {
      * @param name name of a TV_Show__c.
      */
     createNewRecord() {
+        if (!this.posterUrl.startsWith('https://th.bing.com')) {
+            this.urlErrorMessage = 'Image URL must start with => https://th.bing.com';
+            return;
+        }
+        if (this.description.length < 10) {
+            this.descriptionErrorMessage = 'Description must be at least 10 characters long.';
+            return;
+        }
         const fields = {
             'Name': this.name,
             'Description__c': this.description,
@@ -61,11 +72,26 @@ export default class CreateTvShow extends LightningElement {
         createRecord({ apiName: 'TV_Show__c', fields })
             .then(tvShow => {
                 console.log('New TV Show created with Id:', tvShow.id);
-                this.successMessage = 'TV show record was created.';
+                this.createToast();
+                this.closeModal();
             })
             .catch(error => {
                 console.error('Error creating TV Show:', error);
             });
+    }
+    
+    /**
+     * @author Dominika Szuba <dominika.szuba@accenture.com>
+     * @date 06/04/2024
+     * @description This method handles creating of toast.
+     */
+    createToast() {
+        const toastEvent = new ShowToastEvent({
+            title: 'Success',
+            message: 'TV Show created successfully',
+            variant: 'success'
+        });
+        this.dispatchEvent(toastEvent);
     }
 
     /**
