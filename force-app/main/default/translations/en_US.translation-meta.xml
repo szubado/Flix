@@ -46,9 +46,6 @@
             <textTemplates>
                 <name>body</name>
             </textTemplates>
-            <textTemplates>
-                <name>body2</name>
-            </textTemplates>
         </flows>
         <fullName>Send_Email_After_Adding_New_Show</fullName>
     </flowDefinitions>
@@ -108,6 +105,10 @@
         <fullName>net_promoter_score</fullName>
     </flowDefinitions>
     <quickActions>
+        <label><!-- Guest Community Case --></label>
+        <name>GuestCommunityCase</name>
+    </quickActions>
+    <quickActions>
         <label><!-- LogACall --></label>
         <name>LogACall</name>
     </quickActions>
@@ -118,6 +119,10 @@
     <quickActions>
         <label><!-- NewCase --></label>
         <name>NewCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Community Case --></label>
+        <name>NewCommunityCase</name>
     </quickActions>
     <quickActions>
         <label><!-- NewContact --></label>

@@ -120,4 +120,16 @@
         <name>TV_Show_Flix</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>TV Show Flix</name>
+        <type>Network</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>Flixer</name>
+        <type>Network</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>Flix</name>
+        <type>Network</type>
+    </appMenuItems>
 </AppMenu>

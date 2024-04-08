@@ -1,0 +1,122 @@
+<template>
+    <lightning-card>
+        <header class="slds-card__header">
+            <div class="slds-media">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">Seasons And Episodes</h2>
+                </div>
+            </div>
+        </header>
+        <div class="slds-m-around_medium">
+            <lightning-combobox
+                name="season"
+                placeholder="Choose Season"
+                options={seasons}
+                onchange={chooseSeason}
+            ></lightning-combobox>
+            <lightning-combobox
+                name="episode"
+                placeholder="Choose Episode"
+                options={episodes}
+                onchange={chooseEpisode}
+            ></lightning-combobox>
+        </div>
+        <c-episode-details episode-id={selectedEpisodeId}></c-episode-details>
+    </lightning-card>
+    <lightning-card title="TV Show Details">
+        <lightning-button label="Edit TV Show" onclick={openModal}></lightning-button>
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit TV Show</h2>
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <template if:true={generalMessage}>
+                            <div class="slds-form-element__help slds-text-color_error">{generalMessage}</div>
+                        </template>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-01">TV Show Name</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-01" placeholder="Name..." class="slds-input" data-field="name" value={name} onchange={handleChange} />
+                            </div>
+                            <template if:true={errorMessage}>
+                                <div class="slds-form-element__help slds-text-color_error">{errorMessage}</div>
+                            </template>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-02">TV Show Description</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-02" placeholder="Description..." class="slds-input" data-field="description" value={description} onchange={handleChange} />
+                            </div>
+                            <template if:true={descriptionErrorMessage}>
+                                <div class="slds-form-element__help slds-text-color_error">{descriptionErrorMessage}</div>
+                            </template>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-03">TV Show Image URL</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-03" placeholder="Image URL..." class="slds-input" data-field="posterUrl" value={posterUrl} onchange={handleChange} />
+                            </div>
+                            <template if:true={urlErrorMessage}>
+                                <div class="slds-form-element__help slds-text-color_error">{urlErrorMessage}</div>
+                            </template>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={updateTVShow}>Save</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+            <lightning-button label="Delete TV Show" onclick={handleClick} if:true={isDeleteButtonVisible}></lightning-button>
+            <lightning-button label="Add Season to TV Show" onclick={openSeasonModal}></lightning-button>
+            <template if:true={showSeasonModal}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open slds-modal_small">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Add Season to TV Show</h2>
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeSeasonModal}>
+                                <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="form-element-04">Season Name</label>
+                                <div class="slds-form-element__control">
+                                    <input type="text" id="form-element-04" placeholder="Name..." class="slds-input" data-field="seasonName" onchange={handleFieldChange} />
+                                </div>
+                                <template if:true={seasonMessage}>
+                                    <div class="slds-form-element__help slds-text-color_error">{seasonMessage}</div>
+                                </template>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick={closeSeasonModal}>Cancel</button>
+                            <button class="slds-button slds-button_brand" onclick={handleAddSeason}>Add</button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+        <template if:true={tvShows}>
+            <div class="slds-text-heading_large">{tvShows.Name}</div>
+            <img src={tvShows.Img__c} class="slds-size_small"></img>
+            <div class="slds-text-heading_medium">Description: {tvShows.Description__c}</div>
+            <div class="container">
+                <iframe width="800" height="315" src={tvShows.Trailer_Link__c} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="slds-text-heading_large">TV Show Production Localization: {tvShows.City__c}</div>
+                <lightning-card title={cardTitle} icon-name="standard:address">
+                    <lightning-map map-markers={mapMarkers} zoom-level="12"></lightning-map>
+                </lightning-card>
+        </template>
+    </lightning-card>
+</template>

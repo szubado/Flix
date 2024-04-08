@@ -1,0 +1,23 @@
+<template>
+	<lightning-card title="TV Shows">
+		<div class="slds-card__body slds-card__body_inner">
+			<template if:true={tvShows}>
+				<lightning-layout multiple-rows="true" pull-to-boundary="small">
+					<template for:each={tvShows} for:item="tvShow">
+						<lightning-layout-item key={tvShow.Id} size="3" class="slds-text-heading_large">
+							<lightning-card class="tvShow-tile">
+                                <lightning-button variant="base" label={tvShow.Name} data-id={tvShow.Id} onclick={handleTvShowClick}></lightning-button>
+                                <img src={tvShow.Img__c} alt={tvShow.Name} data-id={tvShow.Id} onclick={handleTvShowClick}></img>
+							</lightning-card>
+						</lightning-layout-item>
+					</template>
+				</lightning-layout>
+			</template>
+			<template if:true={error}>
+				<p class="slds-text-color_error">
+					An error occurred while loading the tv show list
+				</p>
+			</template>
+		</div>
+	</lightning-card>
+</template>
