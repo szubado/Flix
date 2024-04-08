@@ -11,6 +11,6 @@
     <startsWith>Consonant</startsWith>
     <validationRules>
         <errorMessage></errorMessage>
-        <name>Description_Length</name>
+        <name>Description_length</name>
     </validationRules>
 </CustomObjectTranslation>

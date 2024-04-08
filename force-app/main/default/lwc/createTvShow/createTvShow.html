@@ -11,6 +11,9 @@
                     </button>
                 </header>
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template if:true={generalMessage}>
+                        <div class="slds-form-element__help slds-text-color_error">{generalMessage}</div>
+                    </template>
                     <div class="slds-form-element">
                         <label class="slds-form-element__label" for="form-element-01">TV Show Name</label>
                         <div class="slds-form-element__control">

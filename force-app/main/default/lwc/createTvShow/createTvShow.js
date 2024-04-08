@@ -15,6 +15,7 @@ export default class CreateTvShow extends LightningElement {
     showModal = false;
     errorMessage;
     urlErrorMessage;
+    generalMessage;
     descriptionErrorMessage;
 
     /**
@@ -56,8 +57,12 @@ export default class CreateTvShow extends LightningElement {
      * @param name name of a TV_Show__c.
      */
     createNewRecord() {
-        if (!this.posterUrl.startsWith('https://th.bing.com')) {
-            this.urlErrorMessage = 'Image URL must start with => https://th.bing.com';
+        if (!this.name || !this.description || !this.posterUrl) {
+            this.generalMessage = 'Records cannot be empty.';
+            return;
+        }    
+        if (!this.posterUrl.startsWith('https://fwcdn.pl')) {
+            this.urlErrorMessage = 'Image URL must start with => https://fwcdn.pl';
             return;
         }
         if (this.description.length < 10) {

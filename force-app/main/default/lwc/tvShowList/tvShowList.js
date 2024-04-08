@@ -42,4 +42,3 @@ export default class TvShowList extends NavigationMixin(LightningElement) {
         });
     }		
 }
-

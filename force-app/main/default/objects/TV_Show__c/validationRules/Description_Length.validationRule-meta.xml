@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Description_Length</fullName>
+    <fullName>Description_length</fullName>
     <active>true</active>
-    <errorConditionFormula>LEN(Description__c) &lt; 10</errorConditionFormula>
-    <errorMessage>Description is too short.</errorMessage>
+    <errorConditionFormula>LEN(Description__c ) &lt; 10</errorConditionFormula>
+    <errorMessage>Description must be longer than 10 charachters.</errorMessage>
 </ValidationRule>

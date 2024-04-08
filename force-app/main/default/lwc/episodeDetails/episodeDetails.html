@@ -1,0 +1,12 @@
+<template>
+    <template lwc:if={episodeId}>
+        <div class="details-container">
+            <lightning-card title="Episode Details">
+            <lightning-record-view-form object-api-name="Episode__c" record-id={episodeId}>
+                <lightning-output-field field-name="Name"> </lightning-output-field>
+                <lightning-output-field field-name="Description__c"> </lightning-output-field>
+            </lightning-record-view-form>
+            </lightning-card>
+        </div>
+    </template>
+</template>

@@ -19,7 +19,7 @@ public with sharing class TVShowController {
     /**
      * @author Dominika Szuba <dominika.szuba@accenture.com>
      * @date 03/04/2024
-     * @description The method returns list of TV_Show__c with Name equal to parameter.
+     * @description The method returns TV_Show__c with Name equal to parameter.
      * 
      * @param name name of a TV_Show__c.
      */
@@ -28,18 +28,24 @@ public with sharing class TVShowController {
         List<TV_Show__c> showList = [SELECT Id, Name, Img__c
                 FROM TV_Show__C
                 WHERE Name = :name];
-                if(!showList.isEmpty()) {
-                    return showList[0];
-                } else {
-                    return null;
-                }
+        if(!showList.isEmpty()) {
+            return showList[0];
+        } else {
+            return null;
+        }
     }
 
+    /**
+     * @author Dominika Szuba <dominika.szuba@accenture.com>
+     * @date 07/04/2024
+     * @description The method returns TV_Show__c with Id equal to parameter.
+     * 
+     * @param tvShowId Id of a TV_Show__c.
+     */
     @AuraEnabled(cacheable=true)
     public static TV_Show__C getTVShowsById(String tvShowId) {
-        return [SELECT Id, Name, Img__c, Description__c, Trailer__c, City__c
+        return [SELECT Id, Name, Img__c, Description__c, Trailer_Link__c, City__c
                 FROM TV_Show__C
-                WHERE Id = :tvShowId
-                ORDER BY Name];
+                WHERE Id = :tvShowId];
     }
 }

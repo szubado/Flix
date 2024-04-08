@@ -4,7 +4,7 @@
 			<template if:true={tvShows}>
 				<lightning-layout multiple-rows="true" pull-to-boundary="small">
 					<template for:each={tvShows} for:item="tvShow">
-						<lightning-layout-item key={tvShow.Id} size="3" class="slds-var-p-around_x-small">
+						<lightning-layout-item key={tvShow.Id} size="3" class="slds-text-heading_large">
 							<lightning-card class="tvShow-tile">
                                 <lightning-button variant="base" label={tvShow.Name} data-id={tvShow.Id} onclick={handleTvShowClick}></lightning-button>
                                 <img src={tvShow.Img__c} alt={tvShow.Name} data-id={tvShow.Id} onclick={handleTvShowClick}></img>
